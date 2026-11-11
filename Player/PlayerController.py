@@ -75,4 +75,4 @@ class PlayerController(MonoBehavior):
         self.gameObject.posX = x
         self.gameObject.posY = y
         # rendering
-        pygame.draw.circle(Screen.current, "green", Transform.world_to_screen_2D(x,y), Transform.world_to_screen_1D(self.collision_radius))
+        #pygame.draw.circle(Screen.current, "green", Transform.world_to_screen_2D(x,y), Transform.world_to_screen_1D(self.collision_radius))

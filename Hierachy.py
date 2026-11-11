@@ -4,10 +4,11 @@ Manual
 from Player.PlayerController import PlayerController
 from Physics.BoxCollider import BoxCollider
 from GameObjects import GameObjects
+from Rendering.SpriteRenderer import SpriteRenderer
 from pygame import Vector2
 
 
-
+# map wall collisions
 colliderPositions: list[Vector2] = [Vector2(0,0), Vector2(1,0),Vector2(24,0), Vector2(0,13), Vector2(6,1), Vector2(6,6), 
                                     Vector2(6,10),Vector2(7,7), Vector2(14,7), Vector2(18,1), Vector2(18,5)]
 colliderSizes: list[Vector2] = [Vector2(1,14), Vector2(24,1), Vector2(1,14), Vector2(25,1), Vector2(1,3), Vector2(1,3), 
@@ -16,7 +17,9 @@ colliderSizes: list[Vector2] = [Vector2(1,14), Vector2(24,1), Vector2(1,14), Vec
 def construct_hierachy(managerMono, managerGO):
     # player GO
     playerGO = GameObjects.create("player")
-    player = playerGO.add_component(PlayerController)
+    playerController = playerGO.add_component(PlayerController)
+    playerSpriteRenderer = playerGO.add_component(SpriteRenderer)
+    playerSpriteRenderer.set_sprite("playerCharacter")
     # building the collision map of the game
     for i in range(len(colliderPositions)):
         colliderGO = GameObjects.create(f"collider_{i}")
@@ -28,5 +31,5 @@ def construct_hierachy(managerMono, managerGO):
         boxCollider.sizeX = size.x
         boxCollider.sizeY = size.y
 
-    print(player.gameObject.name)
+    print(playerController.gameObject.name)
     print(playerGO.components)
