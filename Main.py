@@ -1,21 +1,29 @@
+'''
+AI Assisted
+'''
 import pygame
-from pygame import Vector2
+import Hierachy
 from Core.Time import Time
 from Core.Screen import Screen
 from Core.Input import Input
 from Core.Transform import Transform
-import Hierachy
 from MonoBehaviorManager import MonoBehaviorManager
+from GameObjects import GameObjects
+from Physics.Physics import Physics
 
 pygame.init()
 Screen.current = pygame.display.set_mode((1920,1080))
 pygame.display.set_caption("Shop Keeper")
 clock = pygame.time.Clock()
 running = True
+
 monoManager = MonoBehaviorManager()
+goManager = GameObjects()
+goManager.setMonoManager(monoManager)
+Physics.monoManager = monoManager
 
 # Construct Hierachy
-Hierachy.construct_hierachy(monoManager)
+Hierachy.construct_hierachy(monoManager,goManager)
 
 while running:
 

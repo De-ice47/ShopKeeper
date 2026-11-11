@@ -4,23 +4,15 @@ from Core.Transform import Transform
 from Physics.Collider import Collider
 
 class BoxCollider(Collider):
-    positionX: float = 0.0
-    positionY: float = 0.0
     sizeX: float = 1.0
     sizeY: float = 1.0
 
-    def __init__(self, manager, position: pygame.Vector2, size: pygame.Vector2):
-        super().__init__(manager)
-        self.positionX = position.x
-        self.positionY = position.y
-        self.sizeX = size.x
-        self.sizeY = size.y
-
-
     def update(self):
+        x = self.gameObject.posX
+        y = self.gameObject.posY
 
-        leftBound = Transform.world_to_screen_1D(self.positionX)
-        upperBound = Transform.world_to_screen_1D(self.positionY)
+        leftBound = Transform.world_to_screen_1D(x)
+        upperBound = Transform.world_to_screen_1D(y)
 
         sizeXScaled = Transform.world_to_screen_1D(self.sizeX)
         sizeYScaled = Transform.world_to_screen_1D(self.sizeY)
@@ -30,8 +22,10 @@ class BoxCollider(Collider):
         pygame.draw.rect(Screen.current, "blue", rect)
 
     def collision(self, position):
-        rightBound = position.x < self.positionX + self.sizeX
-        leftBound = position.x > self.positionX
-        lowerBound = position.y < self.positionY + self.sizeY
-        upperBound = position.y > self.positionY
+        x = self.gameObject.posX
+        y = self.gameObject.posY
+        rightBound = position.x < x + self.sizeX
+        leftBound = position.x > x
+        lowerBound = position.y < y + self.sizeY
+        upperBound = position.y > y
         return rightBound and leftBound and lowerBound and upperBound

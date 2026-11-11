@@ -1,7 +1,7 @@
 from pygame import Vector2
 
 class Transform:
-    CONVERSION_FACTOR = 75
+    CONVERSION_FACTOR = 77
     REFERENCE_RESOLUTION = Vector2(1920, 1080)
 
     @classmethod

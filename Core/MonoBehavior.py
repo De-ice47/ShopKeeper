@@ -1,14 +1,19 @@
+'''
+Modified
+'''
 from abc import ABC
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Core.GameObject import GameObject
 
 class MonoBehavior(ABC):
 
-    def __init__(self, manager):
+    def __init__(self, gameObject: GameObject):
         self.enabled = True
-        self.positionX = 0
-        self.positionY = 0
+        self.gameObject = gameObject
         self.start()
-        self.manager = manager
-        self.manager.reg(self)
+        self.componentName = "Mono"
 
     
     def start(self):
