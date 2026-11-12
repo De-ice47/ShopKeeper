@@ -1,5 +1,5 @@
 '''
-Generated using AI
+AI Generated
 '''
 from Core.MonoBehavior import MonoBehavior
 from Rendering.SpriteRenderer import SpriteRenderer
@@ -19,11 +19,18 @@ class MonoBehaviorManager:
         return result
     
     def reg(self, behavior: MonoBehavior):
-        self.behaviors.append(behavior)
+        if isinstance(behavior, SpriteRenderer):
+            self.renderers.append(behavior)
+            self.update_render_stack_order()
+        else:
+            self.behaviors.append(behavior)
+            
 
     def unreg(self, behavior: MonoBehavior):
         if behavior in self.behaviors:
             self.behaviors.remove(behavior)
+        if behavior in self.renderers:
+            self.renderers.remove(behavior)
 
     def start_all(self):
         for behavior in self.behaviors:
@@ -33,6 +40,9 @@ class MonoBehaviorManager:
         for behavior in self.behaviors:
             behavior.update()
 
-    def update_render_threat(self):
-        for behavior in self.behaviors:
-            pass
+    def update_render_thread(self):
+        for renderer in self.renderers:
+            renderer.update()
+
+    def update_render_stack_order(self):
+        self.renderers.sort(key=lambda x: x.order)
