@@ -12,7 +12,7 @@ class SpriteRenderer(MonoBehavior):
     img = None
     size: Vector2 = Vector2(0,0)
     pixelPerUnit: float = 16
-    order: int
+    order = 0
 
     def set_sprite(self, spriteName: str):
         self.img = pygame.image.load(f"Assets/{spriteName}.png")
@@ -21,6 +21,7 @@ class SpriteRenderer(MonoBehavior):
         self.img = pygame.Surface.convert_alpha(self.img)
         self.size.x = self.img.width
         self.size.y = self.img.height
+        self.order = 0
 
     def update(self):
         super().update()

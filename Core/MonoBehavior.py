@@ -1,5 +1,5 @@
 '''
-Modified
+AI Modified
 '''
 from abc import ABC
 from typing import TYPE_CHECKING
@@ -24,5 +24,5 @@ class MonoBehavior(ABC):
         pass
 
     def destroy(self):
-        self.manager.unreg(self)
+        pass
 

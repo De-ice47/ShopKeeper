@@ -66,6 +66,9 @@ while running:
 
     # Update MonoBehaviors
     monoManager.update_mono_thread()
+    
+    monoManager.update_render_stack_order()
+    monoManager.update_render_thread()
 
     # Render the screen
     pygame.display.flip()

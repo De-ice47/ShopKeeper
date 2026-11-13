@@ -6,6 +6,8 @@ from Physics.BoxCollider import BoxCollider
 from GameObjects import GameObjects
 from Rendering.SpriteRenderer import SpriteRenderer
 from pygame import Vector2
+from Inventory.Inventory import Inventory
+from Inventory.Items import Item_Apple
 
 
 # map wall collisions
@@ -20,6 +22,15 @@ def construct_hierachy(managerMono, managerGO):
     playerController = playerGO.add_component(PlayerController)
     playerSpriteRenderer = playerGO.add_component(SpriteRenderer)
     playerSpriteRenderer.set_sprite("playerCharacter")
+
+    # testing item dropped
+    itemGO = GameObjects.create("Item")
+    itemInventory = itemGO.add_component(Inventory)
+    itemInventory.set(Item_Apple)
+    itemSpriteRenderer = itemGO.add_component(SpriteRenderer)
+    #itemSpriteRenderer.set_sprite("crate")
+    itemSpriteRenderer.order = -1
+
     # building the collision map of the game
     for i in range(len(colliderPositions)):
         colliderGO = GameObjects.create(f"collider_{i}")
