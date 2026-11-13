@@ -7,19 +7,22 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from MonoBehaviorManager import MonoBehaviorManager
+    from GameObjects import GameObjects
 
 from typing import TypeVar
 T = TypeVar("T", bound=MonoBehavior)
 
 class GameObject(ABC):
 
-    def __init__(self):
+    def __init__(self, parent: GameObject):
             self.enabled = True
             self.posX = 0
             self.posY = 0
             self.components: list[MonoBehavior] = []
             self.name: str = ""
             self.monoManager: MonoBehaviorManager = None
+            self.gameObjectManager: GameObjects = None
+            self.parent: GameObject = parent
 
     def add_component(self, componentType: type[T]) -> T:
         component = componentType(self)

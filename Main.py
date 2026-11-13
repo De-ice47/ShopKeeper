@@ -31,8 +31,8 @@ Hierachy.construct_hierachy(monoManager,goManager)
 sprites = monoManager.find_monoBehaviors(type(SpriteRenderer))
 
 while running:
-
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
 
@@ -40,7 +40,7 @@ while running:
     Screen.current_resolution = Vector2(Screen.current.width, Screen.current.height) 
 
     # Update Input Handler
-    Input.collect_inputs()
+    Input.collect_inputs(events)
 
     # Draw Debug Grid Pattern
 

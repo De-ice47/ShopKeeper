@@ -1,8 +1,10 @@
 '''
-AI Generated
+AI Modified
 '''
+from pygame import Vector2
 from Core.MonoBehavior import MonoBehavior
 from Rendering.SpriteRenderer import SpriteRenderer
+from Inventory.Inventory import Inventory
 
 class MonoBehaviorManager:
 
@@ -17,6 +19,9 @@ class MonoBehaviorManager:
             if isinstance(monoBehavior, target_type):
                 result.append(monoBehavior)
         return result
+
+    
+
     
     def reg(self, behavior: MonoBehavior):
         if isinstance(behavior, SpriteRenderer):
@@ -25,12 +30,13 @@ class MonoBehaviorManager:
         else:
             self.behaviors.append(behavior)
             
-
     def unreg(self, behavior: MonoBehavior):
-        if behavior in self.behaviors:
-            self.behaviors.remove(behavior)
-        if behavior in self.renderers:
-            self.renderers.remove(behavior)
+        if isinstance(behavior, SpriteRenderer):
+            if behavior in self.renderers:
+                self.renderers.remove(behavior)
+        else:
+            if behavior in self.behaviors:
+                self.behaviors.remove(behavior)
 
     def start_all(self):
         for behavior in self.behaviors:
@@ -46,3 +52,5 @@ class MonoBehaviorManager:
 
     def update_render_stack_order(self):
         self.renderers.sort(key=lambda x: x.order)
+
+    
