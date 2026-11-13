@@ -10,9 +10,14 @@ from Inventory.Inventory import Inventory
 from Player.PlayerInventoryManager import PlayerInventoryManager
 from Inventory.Item import Item
 from Inventory import ItemDefinition
-
+from GameCycle import GameManager
 
 def construct_hierachy(managerMono, managerGO):
+    # game manager
+    gameManagerGO = GameObjects.create("GameManager")
+    gameManager = gameManagerGO.add_component(GameManager.GameManager)
+    gameManager.switch_state(GameManager.Game_State.Morning)
+
     # player
     spawnPlayer(Vector2(5.5,5.5))
 
