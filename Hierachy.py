@@ -19,6 +19,7 @@ def construct_hierachy(managerMono, managerGO):
     # testing item dropped
     print(ItemDefinition.ITEM_DEFINITIONS["apple"])
     spawnItem(ItemDefinition.ITEM_DEFINITIONS["apple"], Vector2(5.5,7.5))
+    spawnItem(ItemDefinition.ITEM_DEFINITIONS["banana"], Vector2(4.5,8.5))
 
     spawnMapColliders()
 
@@ -36,6 +37,7 @@ def spawnPlayer(position: Vector2):
     playerInventory = playerInventoryGO.add_component(Inventory)
     playerInventoryManager = playerInventoryGO.add_component(PlayerInventoryManager)
     playerInventoryManager.playerInventory = playerInventory
+    playerInventory.itemHeld = None
 
 def spawnItem(itemDef: ItemDefinition.ItemDefinition, position: Vector2):
     itemGO = GameObjects.create("Item")

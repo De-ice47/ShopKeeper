@@ -15,20 +15,18 @@ class SpriteRenderer(MonoBehavior):
     order = 0
 
     def set_sprite(self, spriteName: str):
-        try:
-            self.img = pygame.image.load(f"Assets/{spriteName}.png")
-            self.img = pygame.Surface.convert_alpha(self.img)
+        if spriteName is None:
+            self.img = None
+        else:
+            try:
+                self.img = pygame.image.load(f"Assets/{spriteName}.png")
+                self.img = pygame.Surface.convert_alpha(self.img)
 
-            self.size.x = self.img.width
-            self.size.y = self.img.height
+                self.size.x = self.img.width
+                self.size.y = self.img.height
 
-        except (FileNotFoundError, pygame.error) as e:
-            print(f"WARNING: Failed to load sprite '{spriteName}': {e}")
-            self.img = pygame.Surface((16, 16), pygame.SRCALPHA)
-            self.img.fill((255, 0, 255))
-
-            self.size.x = self.img.width
-            self.size.y = self.img.height
+            except (FileNotFoundError, pygame.error) as e:
+                print(f"WARNING: Failed to load sprite '{spriteName}': {e}")
 
     def update(self):
         super().update()

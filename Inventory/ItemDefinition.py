@@ -18,6 +18,13 @@ ITEM_DEFINITIONS = {
         "Banana",
         3.0,
         "banana"
+    ),
+
+    "strawberry": ItemDefinition(
+        "strawberry",
+        "Strawberry",
+        7.0,
+        "strawberry"
     )
 }
 

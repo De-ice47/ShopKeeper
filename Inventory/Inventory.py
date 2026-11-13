@@ -17,12 +17,21 @@ class Inventory(MonoBehavior):
     def set(self, item: ItemDefinition):
 
         if(item is not None):
-            print("Incoming item:", item.Name)
-        self.itemHeld = Item(item)
+            print(f"Incoming item for ({self.gameObject.name}): {item.Name}")
+            self.itemHeld = Item(item)
+        else:
+            print(f"Incoming item for ({self.gameObject.name}): None")
+            self.itemHeld = None
+        
         if(item is not None):
-            print("Stored item:", self.itemHeld.Name)
+            print(f"Stored item for ({self.gameObject.name}): {self.itemHeld.Name}")
+        else:
+            print(f"Stored item for {self.gameObject.name}: None")
         self.resetSprite()
 
     def resetSprite(self):
-        if(self.spriteRenderer is not None and self.itemHeld is not None):
-            self.spriteRenderer.set_sprite(self.itemHeld.Name)
+        if(self.spriteRenderer is not None):
+            if(self.itemHeld is None):
+                self.spriteRenderer.set_sprite(None)
+            else:
+                self.spriteRenderer.set_sprite(self.itemHeld.Sprite)
