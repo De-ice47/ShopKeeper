@@ -6,11 +6,18 @@ from Inventory.Inventory import Inventory
 from Core.Transform import Transform
 from Physics.Physics import Physics
 import math
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Core.GameObject import GameObject
+
 
 class PlayerInventoryManager(MonoBehavior):
+    PLAYER_REACH: float = 5
     
     def __init__(self, gameObject):
         self.playerInventory: Inventory = None
+        self.playerTransform: GameObject = None
         super().__init__(gameObject)
 
     def update(self):
@@ -27,8 +34,10 @@ class PlayerInventoryManager(MonoBehavior):
 
         if(self.gameObject is None):
             return
-        self.gameObject.posX = mouse_x
-        self.gameObject.posY = mouse_y
+        dx = max(-self.PLAYER_REACH, min(self.playerTransform.posX - mouse_x, self.PLAYER_REACH)) 
+        dy = max(-self.PLAYER_REACH, min(self.playerTransform.posY - mouse_y, self.PLAYER_REACH)) 
+        self.gameObject.posX = self.playerTransform.posX - dx
+        self.gameObject.posY = self.playerTransform.posY - dy
 
     def dropInventory(self, mouse_x, mouse_y):
         dropPosition = Vector2(math.floor(mouse_x) + .5,math.floor(mouse_y) + .5)
@@ -59,7 +68,7 @@ class PlayerInventoryManager(MonoBehavior):
         if(closestInventory != None):
             pos_x = closestInventory.gameObject.posX
             pos_y = closestInventory.gameObject.posY
-            distanceAway = math.sqrt((self.gameObject.posX - pos_x) ** 2 + (self.gameObject.posY - pos_y) ** 2)
+            distanceAway = math.sqrt((self.playerTransform.posX - pos_x) ** 2 + (self.playerTransform.posY - pos_y) ** 2)
             if(distanceAway < 5):
                 self.grabInnventory(closestInventory)
 

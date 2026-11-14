@@ -4,11 +4,14 @@ AI Modified
 from pygame import Vector2
 from Core.MonoBehavior import MonoBehavior
 from Rendering.SpriteRenderer import SpriteRenderer
+from Rendering.TextRenderer import TextRenderer
 from Inventory.Inventory import Inventory
+from Core.Screen import Screen
 
 class MonoBehaviorManager:
 
     renderers: list[SpriteRenderer] = []
+    UIrenderers: list[TextRenderer] = []
 
     def __init__(self):
         self.behaviors: list[MonoBehavior] = []
@@ -27,6 +30,8 @@ class MonoBehaviorManager:
         if isinstance(behavior, SpriteRenderer):
             self.renderers.append(behavior)
             self.update_render_stack_order()
+        elif isinstance(behavior, TextRenderer):
+            self.UIrenderers.append(behavior)
         else:
             self.behaviors.append(behavior)
             
@@ -34,6 +39,9 @@ class MonoBehaviorManager:
         if isinstance(behavior, SpriteRenderer):
             if behavior in self.renderers:
                 self.renderers.remove(behavior)
+        elif isinstance(behavior, TextRenderer):
+            if behavior in self.UIrenderers:
+                self.UIrenderers.remove(behavior)
         else:
             if behavior in self.behaviors:
                 self.behaviors.remove(behavior)
@@ -49,6 +57,8 @@ class MonoBehaviorManager:
     def update_render_thread(self):
         for renderer in self.renderers:
             renderer.update()
+        for textRenderer in self.UIrenderers:
+            textRenderer.render(Screen.current)
 
     def update_render_stack_order(self):
         self.renderers.sort(key=lambda x: x.order)
