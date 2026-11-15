@@ -1,106 +1,101 @@
 '''
 Manual
 '''
-from Player.PlayerController import PlayerController
-from Physics.BoxCollider import BoxCollider
+from pygame import Vector2
 from GameObjects import GameObjects
 from Rendering.SpriteRenderer import SpriteRenderer
-from pygame import Vector2
-from Inventory.Inventory import Inventory
-from Player.PlayerInventoryManager import PlayerInventoryManager
-from Inventory.Item import Item
-from Inventory import ItemDefinition
-from GameCycle import GameManager
+from Rendering.TextRenderer import TextRenderer
+from Physics.BoxCollider import BoxCollider
 from GameCycle.CustomerManager import CustomerManager
+from GameCycle import GameManager
 from GameCycle.OpenStoreSwitch import OpenStoreSwitch
 from UI.MainUI import MainUI
-from Rendering.TextRenderer import TextRenderer
+from Player.PlayerController import PlayerController
+from Inventory.Inventory import Inventory
+from Inventory.Item import Item
+from Inventory import ItemDefinition
+from Player.PlayerInventoryManager import PlayerInventoryManager
 
-def construct_hierachy(managerMono, managerGO):
+def construct_hierachy():
     # game manager
-    gameManagerGO = GameObjects.create("GameManager")
-    gameManager = gameManagerGO.add_component(GameManager.GameManager)
-    gameManager.switch_state(GameManager.Game_State.Morning)
+    game_manager_GO = GameObjects.create("GameManager")
+    game_manager = game_manager_GO.add_component(GameManager.GameManager)
+    game_manager.switch_state(GameManager.Game_State.Morning)
 
     # customer managers
-    spawnCustomerPosition(Vector2(10,1), gameManager)
-    spawnCustomerPosition(Vector2(12,1), gameManager)
-    spawnCustomerPosition(Vector2(14,1), gameManager)
+    spawn_customer_position(Vector2(10,1), game_manager)
+    spawn_customer_position(Vector2(12,1), game_manager)
+    spawn_customer_position(Vector2(14,1), game_manager)
 
     # opening store switch
-    switchGO = GameObjects.create("Switch")
-    switch = switchGO.add_component(OpenStoreSwitch)
-    switch.gameManager = gameManager
-    renderer = switchGO.add_component(SpriteRenderer)
+    switch_GO = GameObjects.create("Switch")
+    switch = switch_GO.add_component(OpenStoreSwitch)
+    switch.game_manager = game_manager
+    renderer = switch_GO.add_component(SpriteRenderer)
     renderer.set_sprite("switchClosed")
-    switch.switchSpriteRenderer = renderer
-    switchGO.posX = 17.5
-    switchGO.posY = .5
+    switch.switch_sprite_renderer = renderer
+    switch_GO.pos_x = 17.5
+    switch_GO.pos_y = .5
 
     # UI
-    mainUIGO = GameObjects.create("mainUI")
-    mainUIText = mainUIGO.add_component(TextRenderer)
-    mainUI = mainUIGO.add_component(MainUI)
-    mainUI.text = mainUIText
-    mainUIGO.posX = .5
-    mainUIGO.posY = .5
-    mainUI.gameManager = gameManager
-    mainUI.switch = switch
+    main_UI_GO = GameObjects.create("mainUI")
+    mainUIText = main_UI_GO.add_component(TextRenderer)
+    main_UI = main_UI_GO.add_component(MainUI)
+    main_UI.text = mainUIText
+    main_UI_GO.pos_x = .5
+    main_UI_GO.pos_y = .5
+    main_UI.game_manager = game_manager
+    main_UI.switch = switch
 
     # player
-    spawnPlayer(Vector2(5.5,5.5))
+    spawn_player(Vector2(5.5,5.5))
 
-    spawnMapColliders()
+    spawn_map_colliders()
 
 
-def spawnCustomerPosition(position: Vector2, gameManager: GameManager.GameManager):
-    customerManagerGO = GameObjects.create(f"Customer Manager {position}")
-    customerManager = customerManagerGO.add_component(CustomerManager)
-    customerManager.gameManager = gameManager
-    customerRenderer = customerManagerGO.add_component(SpriteRenderer)
-    customerManager.renderer = customerRenderer
-    customerRenderer.pixelPerUnit = 32
-    customerManagerGO.posX = position.x + .5
-    customerManagerGO.posY = position.y + .5
+def spawn_customer_position(position: Vector2, gameManager: GameManager.GameManager):
+    customer_manager_GO = GameObjects.create(f"Customer Manager {position}")
+    customer_manager = customer_manager_GO.add_component(CustomerManager)
+    customer_manager.game_manager = gameManager
+    customer_renderer = customer_manager_GO.add_component(SpriteRenderer)
+    customer_manager.renderer = customer_renderer
+    customer_renderer.pixel_per_unit = 32
+    customer_manager_GO.pos_x = position.x + .5
+    customer_manager_GO.pos_y = position.y + .5
 
-def spawnPlayer(position: Vector2):
-    playerGO = GameObjects.create("player")
-    playerGO.posX = position.x
-    playerGO.posY = position.y
-    playerGO.add_component(PlayerController)
-    playerSpriteRenderer = playerGO.add_component(SpriteRenderer)
-    playerSpriteRenderer.set_sprite("playerCharacter")
-    playerSpriteRenderer.order = 5
 
-    playerInventoryGO = GameObjects.create("playerInventory",playerGO)
-    playerInventory = playerInventoryGO.add_component(Inventory)
-    playerInventoryManager = playerInventoryGO.add_component(PlayerInventoryManager)
-    playerInventoryManager.playerInventory = playerInventory
-    playerInventoryManager.playerTransform = playerGO
-    playerInventory.itemHeld = None
+def spawn_player(position: Vector2):
+    player_GO = GameObjects.create("player")
+    player_GO.pos_x = position.x
+    player_GO.pos_y = position.y
+    player_GO.add_component(PlayerController)
+    player_sprite_renderer = player_GO.add_component(SpriteRenderer)
+    player_sprite_renderer.set_sprite("playerCharacter")
+    player_sprite_renderer.order = 5
 
-def spawnItem(itemDef: ItemDefinition.ItemDefinition, position: Vector2):
-    itemGO = GameObjects.create("Item")
-    itemGO.posX = position.x
-    itemGO.posY = position.y
-    itemInventory = itemGO.add_component(Inventory)
-    itemInventory.set(itemDef)
+    player_inventory_GO = GameObjects.create("playerInventory",player_GO)
+    player_inventory = player_inventory_GO.add_component(Inventory)
+    player_inventory_manager = player_inventory_GO.add_component(PlayerInventoryManager)
+    player_inventory_manager.player_inventory = player_inventory
+    player_inventory_manager.player_transform = player_GO
+    player_inventory.item_held = None
 
 
 # map wall collisions
-colliderPositions: list[Vector2] = [Vector2(0,0), Vector2(1,0),Vector2(24,0), Vector2(0,13), Vector2(6,1), Vector2(6,6), 
+collider_positions: list[Vector2] = [Vector2(0,0), Vector2(1,0),Vector2(24,0), Vector2(0,13), Vector2(6,1), Vector2(6,6), 
                                     Vector2(6,10),Vector2(7,7), Vector2(14,7), Vector2(18,1), Vector2(18,5)]
-colliderSizes: list[Vector2] = [Vector2(1,14), Vector2(24,1), Vector2(1,14), Vector2(25,1), Vector2(1,3), Vector2(1,3), 
+collider_sizes: list[Vector2] = [Vector2(1,14), Vector2(24,1), Vector2(1,14), Vector2(25,1), Vector2(1,3), Vector2(1,3), 
                                 Vector2(1,3), Vector2(5,1), Vector2(10,1), Vector2(1,3), Vector2(1,2)]
 
-def spawnMapColliders():
+
+def spawn_map_colliders():
     # building the collision map of the game
-    for i in range(len(colliderPositions)):
-        colliderGO = GameObjects.create(f"collider_{i}")
-        boxCollider = colliderGO.add_component(BoxCollider)
-        position: Vector2 = colliderPositions[i]
-        size: Vector2 = colliderSizes[i]
-        boxCollider.gameObject.posX = position.x
-        boxCollider.gameObject.posY = position.y
-        boxCollider.sizeX = size.x
-        boxCollider.sizeY = size.y
+    for i in range(len(collider_positions)):
+        collider_GO = GameObjects.create(f"collider_{i}")
+        box_collider = collider_GO.add_component(BoxCollider)
+        position: Vector2 = collider_positions[i]
+        size: Vector2 = collider_sizes[i]
+        box_collider.gameObject.pos_x = position.x
+        box_collider.gameObject.pos_y = position.y
+        box_collider.size_x = size.x
+        box_collider.size_y = size.y

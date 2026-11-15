@@ -1,14 +1,22 @@
+'''
+Manual
+'''
 from Inventory.ItemDefinition import ItemDefinition
+
+
 class Item:
+
     def __init__(self, definition: ItemDefinition):
-        self.Definition = definition
-        self.ID = ""
-        self.Name = ""
-        self.Value = 0.0
-        self.Sprite = ""
+        self.definition = definition
+        self.id = ""
+        self.name = ""
+        self.value = 0.0
+        self.sprite_tag = ""
+
         if definition is None:
             return
-        self.ID = definition.ID
-        self.Name = definition.Name
-        self.Value = definition.Value
-        self.Sprite = definition.Sprite
+        
+        self.id = definition.id
+        self.name = definition.name
+        self.value = definition.value
+        self.sprite_tag = definition.sprite_tag
