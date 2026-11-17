@@ -19,6 +19,8 @@ class GameManager(MonoBehavior):
 
     game_state: Game_State = None
     money: int = 0
+    MIN_ITEMS_ON_DELIVERY: int = 20
+    MAX_ITEMS_ON_DELIVERY: int = 30
 
     def switch_state(self,state: Game_State):
         if self.game_state == state:
@@ -26,7 +28,7 @@ class GameManager(MonoBehavior):
         self.game_state = state
         if state == Game_State.Morning:
             # spawn delivered items in delivery zone
-            number_of_items_to_deliver = random.randint(20,30)
+            number_of_items_to_deliver = random.randint(self.MIN_ITEMS_ON_DELIVERY,self.MAX_ITEMS_ON_DELIVERY)
             for i in range(number_of_items_to_deliver):
                 random_item: ItemDefinition.ItemDefinition = random.choice(list(ItemDefinition.ITEM_DEFINITIONS.values()))
                 position = Vector2(18 + i // 5,8 + i % 5)

@@ -6,7 +6,7 @@ and was used to assist me in writing the more complex OOP scripts that I needed 
 ### Script Tags
 All scripts in the project have 1 of 4 tags listed below at their header to tell the viewer how involved AI was in programming for that script
 
-Only scripts with the tag `Manual` were used for scoring in the final project slideshow
+Only scripts with the tag `Manual` and `AI Assisted` were used for scoring in the final project slideshow
 
 `Manual` Fully written by me, no AI intervention
 

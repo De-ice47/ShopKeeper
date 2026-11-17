@@ -13,13 +13,16 @@ from Inventory import ItemDefinition
 
 
 class CustomerManager(MonoBehavior):
+
+    MIN_WAIT_TIME: int = 1
+    MAX_WAIT_TIME: int = 7
     
     def __init__(self, gameObject):
         super().__init__(gameObject)
         self.requested_item: ItemDefinition.ItemDefinition = None
         self.game_manager: GameManager.GameManager = None
         self.renderer: SpriteRenderer = None
-        self.reset_time: float = float(random.randint(1, 7))
+        self.reset_time: float = float(random.randint(self.MIN_WAIT_TIME, self.MAX_WAIT_TIME))
         self.reset_timer: float = 0
 
 
@@ -41,7 +44,7 @@ class CustomerManager(MonoBehavior):
             if self.requested_item == None and self.reset_timer > self.reset_time:
                 self.requested_item = random.choice(list(ItemDefinition.ITEM_DEFINITIONS.values()))
                 self.renderer.set_sprite(self.requested_item.sprite_tag)
-                self.reset_time = float(random.randint(2, 10))
+                self.reset_time = float(random.randint(self.MIN_WAIT_TIME, self.MAX_WAIT_TIME))
             elif self.requested_item != None:
                 self.reset_timer = 0
             pass

@@ -1,5 +1,5 @@
 '''
-AI Asisted
+AI Assisted
 '''
 import math
 from pygame import Vector2

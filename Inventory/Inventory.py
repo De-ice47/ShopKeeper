@@ -22,13 +22,13 @@ class Inventory(MonoBehavior):
             print(f"Incoming item for ({self.gameObject.name}): {item.name}")
             self.item_held = Item(item)
         else:
-            print(f"Incoming item for ({self.gameObject.name}): None")
+            print(f"Incoming item for ({self.gameObject.name}):" + " None")
             self.item_held = None
         
         if(item is not None):
             print(f"Stored item for ({self.gameObject.name}): {self.item_held.name}")
         else:
-            print(f"Stored item for {self.gameObject.name}: None")
+            print(f"Stored item for {self.gameObject.name}:"+ " None")
         self.reset_sprite()
 
 

@@ -29,7 +29,7 @@ class OpenStoreSwitch(MonoBehavior):
                 if distance <= .45:
                     self.game_manager.switch_state(GameManager.Game_State.Service)
                     self.switch_sprite_renderer.set_sprite("switch")
-        elif self.game_manager.game_state == GameManager.Game_State.Evening:
+        else:
             self.time_left_in_day = self.TIME_PER_DAY
             self.game_manager.switch_state(GameManager.Game_State.Morning)
             
