@@ -12,7 +12,7 @@ from Physics.Physics import Physics
 class PlayerController(MonoBehavior):
 
     movement_speed = 5
-    collision_radius = .4
+    collision_radius = .25
 
     def start(self):
         super().start()
@@ -53,12 +53,12 @@ class PlayerController(MonoBehavior):
        
         candidate_x = x + move_x
         
-        if not Physics.circle_cast(Vector2(candidate_x, y),self.collision_radius):
+        if not Physics.circle_cast(Vector2(candidate_x, y+.2),self.collision_radius):
             x = candidate_x
         
         candidate_y = y + move_y
         
-        if not Physics.circle_cast(Vector2(x, candidate_y),self.collision_radius):
+        if not Physics.circle_cast(Vector2(x, candidate_y+.2),self.collision_radius):
             y = candidate_y
 
         self.gameObject.pos_x = x

@@ -1,9 +1,6 @@
 '''
 AI Modified
 '''
-import pygame
-from Core.Screen import Screen
-from Core.Transform import Transform
 from Physics.Collider import Collider
 
 
@@ -16,16 +13,6 @@ class BoxCollider(Collider):
     def update(self):
         x = self.gameObject.pos_x
         y = self.gameObject.pos_y
-
-        left_bound = Transform.world_to_screen_1D(x)
-        upper_bound = Transform.world_to_screen_1D(y)
-
-        size_x_scaled = Transform.world_to_screen_1D(self.size_x)
-        size_y_scaled = Transform.world_to_screen_1D(self.size_y)
-
-        rect = pygame.Rect(left_bound,upper_bound,size_x_scaled,size_y_scaled)
-
-        pygame.draw.rect(Screen.current, "blue", rect)
 
 
     def collision(self, position):

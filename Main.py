@@ -46,6 +46,7 @@ while running:
     # Draw Debug Grid Pattern
 
     # AI Generated
+    '''
     interval: float = Transform.world_to_screen_1D(1)
     vertical_iterations = int(Screen.current.height / interval) + 1
     horizontal_iterations = int(Screen.current.width / interval) + 1
@@ -63,6 +64,7 @@ while running:
             if(i % 5 == 0): 
                 color = "gray90"
             pygame.draw.rect(Screen.current,color,rect)
+            '''
     # End AI Generated
 
     # Update MonoBehaviors

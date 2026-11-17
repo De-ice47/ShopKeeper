@@ -10,10 +10,17 @@ from Core.Transform import Transform
 
 
 class SpriteRenderer(MonoBehavior):
-    img = None
-    size: Vector2 = Vector2(0,0)
-    pixel_per_unit: float = 16
-    order = 0
+
+    def __init__(self, gameObject):
+        self.img = None
+        self.size: Vector2 = Vector2(0,0)
+        self.offset: Vector2 = Vector2(0,0)
+        self.pixel_per_unit: float = 16
+        self.order = 0
+        
+        super().__init__(gameObject)
+    
+
 
     def set_sprite(self, sprite_name: str):
         if sprite_name is None:
@@ -35,8 +42,8 @@ class SpriteRenderer(MonoBehavior):
         if self.img == None:
             return
 
-        size_offset_x = self.size.x / self.pixel_per_unit * .5
-        size_offset_y = self.size.y / self.pixel_per_unit * .5
+        size_offset_x = self.size.x / self.pixel_per_unit * .5 + self.offset.x
+        size_offset_y = self.size.y / self.pixel_per_unit * .5 + self.offset.y
         # AI Generated
         screen_x = Transform.world_to_screen_1D(self.gameObject.pos_x - size_offset_x)
         screen_y = Transform.world_to_screen_1D(self.gameObject.pos_y - size_offset_y)

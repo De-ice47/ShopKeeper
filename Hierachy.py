@@ -17,6 +17,16 @@ from Inventory import ItemDefinition
 from Player.PlayerInventoryManager import PlayerInventoryManager
 
 def construct_hierachy():
+    # stage
+    stage_GO = GameObjects.create("Stage")
+    stage_GO.pos_x = 12.5
+    stage_GO.pos_y = 7
+    stage_sprite = stage_GO.add_component(SpriteRenderer)
+    stage_sprite.set_sprite("stage")
+    stage_sprite.size = Vector2(25,14)
+    stage_sprite.pixel_per_unit = 1
+    stage_sprite.order = -5
+
     # game manager
     game_manager_GO = GameObjects.create("GameManager")
     game_manager = game_manager_GO.add_component(GameManager.GameManager)
@@ -58,10 +68,20 @@ def spawn_customer_position(position: Vector2, gameManager: GameManager.GameMana
     customer_manager = customer_manager_GO.add_component(CustomerManager)
     customer_manager.game_manager = gameManager
     customer_renderer = customer_manager_GO.add_component(SpriteRenderer)
-    customer_manager.renderer = customer_renderer
+    customer_manager.itemRenderer = customer_renderer
     customer_renderer.pixel_per_unit = 32
+    customer_renderer.order = 9
     customer_manager_GO.pos_x = position.x + .5
     customer_manager_GO.pos_y = position.y + .5
+    customer_renderer.offset = Vector2(1,1)
+    bubble_renderer = customer_manager_GO.add_component(SpriteRenderer)
+    customer_manager.bubbleRenderer = bubble_renderer
+    bubble_renderer.offset = Vector2(1,1)
+    bubble_renderer.order = 8
+    personRenderer = customer_manager_GO.add_component(SpriteRenderer)
+    customer_manager.personRenderer = personRenderer
+    personRenderer.offset = Vector2(0,1)
+    personRenderer.order = 3
 
 
 def spawn_player(position: Vector2):
