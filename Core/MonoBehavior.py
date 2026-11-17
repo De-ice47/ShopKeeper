@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from Core.GameObject import GameObject
 
+
 class MonoBehavior(ABC):
 
     def __init__(self, gameObject: GameObject):
@@ -23,6 +24,6 @@ class MonoBehavior(ABC):
     def update(self):
         pass
 
+
     def destroy(self):
         pass
-

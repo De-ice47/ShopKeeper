@@ -3,48 +3,48 @@ AI Assisted
 '''
 from pygame import Vector2
 from Physics.Collider import Collider
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from MonoBehaviorManager import MonoBehaviorManager
 
+
 class Physics:
+
     colliders: list[Collider] = []
-    monoManager: MonoBehaviorManager = None
+    mono_manager: MonoBehaviorManager = None
+
 
     @classmethod
     def find_colliders(cls):
-        cls.colliders = cls.monoManager.find_monoBehaviors(Collider)
+        cls.colliders = cls.mono_manager.find_monoBehaviors(Collider)
 
 
     @classmethod
     def ray_cast(cls,position: Vector2):
         cls.find_colliders()
         for collider in cls.colliders:
-            if(collider.collision(position)):
+            if collider.collision(position):
                 return True
         return False
+
 
     @classmethod
     def circle_cast(cls, position: Vector2, radius: float):
         cls.find_colliders()
         for collider in cls.colliders:
-            # Rectangle bounds (assuming collider position is bottom-left)
-            left = collider.gameObject.posX
-            right = left + collider.sizeX
-            bottom = collider.gameObject.posY
-            top = bottom + collider.sizeY
+            left = collider.gameObject.pos_x
+            right = left + collider.size_x
+            bottom = collider.gameObject.pos_y
+            top = bottom + collider.size_y
 
-            # Find closest point on rectangle to circle center
-            closestX = max(left, min(position.x, right))
-            closestY = max(bottom, min(position.y, top))
+            closest_X = max(left, min(position.x, right))
+            closest_Y = max(bottom, min(position.y, top))
 
-            # Distance between closest point and circle center
-            distanceX = position.x - closestX
-            distanceY = position.y - closestY
+            distance_x = position.x - closest_X
+            distance_y = position.y - closest_Y
 
-            if distanceX * distanceX + distanceY * distanceY < radius * radius:
+            if distance_x * distance_x + distance_y * distance_y < radius * radius:
                 return True
 
         return False

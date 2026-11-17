@@ -1,5 +1,5 @@
 '''
-AI Assisted
+AI Modified
 '''
 import pygame
 from pygame import Vector2
@@ -8,50 +8,49 @@ from Core.Screen import Screen
 from Core.MonoBehavior import MonoBehavior
 from Core.Transform import Transform
 
+
 class SpriteRenderer(MonoBehavior):
     img = None
     size: Vector2 = Vector2(0,0)
-    pixelPerUnit: float = 16
+    pixel_per_unit: float = 16
     order = 0
 
-    def set_sprite(self, spriteName: str):
-        if spriteName is None:
+    def set_sprite(self, sprite_name: str):
+        if sprite_name is None:
             self.img = None
         else:
             try:
-                self.img = pygame.image.load(f"Assets/{spriteName}.png")
+                self.img = pygame.image.load(f"Assets/{sprite_name}.png")
                 self.img = pygame.Surface.convert_alpha(self.img)
 
                 self.size.x = self.img.width
                 self.size.y = self.img.height
 
             except (FileNotFoundError, pygame.error) as e:
-                print(f"WARNING: Failed to load sprite '{spriteName}': {e}")
+                print(f"WARNING: Failed to load sprite '{sprite_name}': {e}")
+
 
     def update(self):
         super().update()
         if self.img == None:
             return
 
-        sizeOffsetX = self.size.x / self.pixelPerUnit * .5
-        sizeOffsetY = self.size.y / self.pixelPerUnit * .5
+        size_offset_x = self.size.x / self.pixel_per_unit * .5
+        size_offset_y = self.size.y / self.pixel_per_unit * .5
         # AI Generated
-        screenX = Transform.world_to_screen_1D(self.gameObject.posX - sizeOffsetX)
-        screenY = Transform.world_to_screen_1D(self.gameObject.posY - sizeOffsetY)
+        screen_x = Transform.world_to_screen_1D(self.gameObject.pos_x - size_offset_x)
+        screen_y = Transform.world_to_screen_1D(self.gameObject.pos_y - size_offset_y)
 
-        worldSizeX = self.size.x / self.pixelPerUnit
-        worldSizeY = self.size.y / self.pixelPerUnit
+        world_size_x = self.size.x / self.pixel_per_unit
+        world_size_y = self.size.y / self.pixel_per_unit
 
-        screenSizeX = Transform.world_to_screen_1D(worldSizeX)
-        screenSizeY = Transform.world_to_screen_1D(worldSizeY)
+        screen_size_x = Transform.world_to_screen_1D(world_size_x)
+        screen_size_y = Transform.world_to_screen_1D(world_size_y)
     
-        rect = Rect(screenX, screenY, screenSizeX, screenSizeY)
+        rect = Rect(screen_x, screen_y, screen_size_x, screen_size_y)
 
-        scaled_img = pygame.transform.scale(
-            self.img,
-            (int(screenSizeX), int(screenSizeY))
-        )
+        scaled_img = pygame.transform.scale(self.img,(int(screen_size_x), int(screen_size_y)))
         #end AI Generated
 
-        rect: Rect = Rect(screenX,screenY,screenSizeX, screenSizeY)
+        rect: Rect = Rect(screen_x,screen_y,screen_size_x, screen_size_y)
         Screen.current.blit(scaled_img, rect)

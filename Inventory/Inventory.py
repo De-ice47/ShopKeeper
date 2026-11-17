@@ -2,36 +2,39 @@
 Manual
 '''
 from Core.MonoBehavior import MonoBehavior
-from Inventory.Item import Item
-from Inventory.ItemDefinition import ItemDefinition
 from Rendering.SpriteRenderer import SpriteRenderer
+from Inventory.ItemDefinition import ItemDefinition
+from Inventory.Item import Item
+
 
 class Inventory(MonoBehavior):
 
     def start(self):
         super().start()
-        self.spriteRenderer = self.gameObject.add_component(SpriteRenderer)
-        self.spriteRenderer.order = -5
-        self.itemHeld : Item | None = Item(None)
+        self.sprite_renderer = self.gameObject.add_component(SpriteRenderer)
+        self.sprite_renderer.order = -5
+        self.item_held : Item | None = Item(None)
+
 
     def set(self, item: ItemDefinition):
 
         if(item is not None):
-            print(f"Incoming item for ({self.gameObject.name}): {item.Name}")
-            self.itemHeld = Item(item)
+            print(f"Incoming item for ({self.gameObject.name}): {item.name}")
+            self.item_held = Item(item)
         else:
-            print(f"Incoming item for ({self.gameObject.name}): None")
-            self.itemHeld = None
+            print(f"Incoming item for ({self.gameObject.name}):" + " None")
+            self.item_held = None
         
         if(item is not None):
-            print(f"Stored item for ({self.gameObject.name}): {self.itemHeld.Name}")
+            print(f"Stored item for ({self.gameObject.name}): {self.item_held.name}")
         else:
-            print(f"Stored item for {self.gameObject.name}: None")
-        self.resetSprite()
+            print(f"Stored item for {self.gameObject.name}:"+ " None")
+        self.reset_sprite()
 
-    def resetSprite(self):
-        if(self.spriteRenderer is not None):
-            if(self.itemHeld is None):
-                self.spriteRenderer.set_sprite(None)
+
+    def reset_sprite(self):
+        if(self.sprite_renderer is not None):
+            if(self.item_held is None):
+                self.sprite_renderer.set_sprite(None)
             else:
-                self.spriteRenderer.set_sprite(self.itemHeld.Sprite)
+                self.sprite_renderer.set_sprite(self.item_held.sprite_tag)

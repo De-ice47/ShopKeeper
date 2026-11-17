@@ -1,9 +1,14 @@
+'''
+AI Modified
+'''
 class ItemDefinition:
-    def __init__(self, itemID: str, name: str, value: float, sprite: str):
-        self.ID = itemID
-        self.Name = name
-        self.Value = value
-        self.Sprite = sprite
+
+    def __init__(self, item_id: str, name: str, value: float, sprite_tag: str):
+        self.id = item_id
+        self.name = name
+        self.value = value
+        self.sprite_tag = sprite_tag
+
 
 ITEM_DEFINITIONS = {
     "apple": ItemDefinition(

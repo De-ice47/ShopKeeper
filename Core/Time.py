@@ -1,4 +1,6 @@
-
+'''
+Manual
+'''
 class Time:
-    Time: float = 0.0
-    DeltaTime: float = 0.0
+    time: float = 0.0
+    delta_time: float = 0.0

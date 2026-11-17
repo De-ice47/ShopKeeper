@@ -1,5 +1,5 @@
 '''
-Assisted by AI
+AI Assisted
 '''
 from abc import ABC
 from Core.MonoBehavior import MonoBehavior
@@ -12,25 +12,28 @@ if TYPE_CHECKING:
 from typing import TypeVar
 T = TypeVar("T", bound=MonoBehavior)
 
+
 class GameObject(ABC):
 
     def __init__(self, parent: GameObject):
             self.enabled = True
-            self.posX = 0
-            self.posY = 0
+            self.pos_x = 0
+            self.pos_y = 0
             self.components: list[MonoBehavior] = []
             self.name: str = ""
-            self.monoManager: MonoBehaviorManager = None
-            self.gameObjectManager: GameObjects = None
+            self.mono_manager: MonoBehaviorManager = None
+            self.gameObject_manager: GameObjects = None
             self.parent: GameObject = parent
 
-    def add_component(self, componentType: type[T]) -> T:
-        component = componentType(self)
+
+    def add_component(self, component_type: type[T]) -> T:
+        component = component_type(self)
         component.gameObject = self
         self.components.append(component)
-        self.monoManager.reg(component)
+        self.mono_manager.reg(component)
 
         return component
+
 
     def remove_component(self, behavior:MonoBehavior):
         if behavior not in self.components:
@@ -38,8 +41,9 @@ class GameObject(ABC):
         self.components.remove(behavior)
         behavior.gameObject = None
 
-    def get_component(self, componentType: type):
+
+    def get_component(self, component_type: type):
         for component in self.components:
-            if(isinstance(component, componentType)):
+            if isinstance(component, component_type):
                 return component
         return None

@@ -1,4 +1,9 @@
+'''
+AI Modified
+'''
 import pygame
+
+
 class Input:
     keys_held = []
     keys_pressed = []
@@ -8,6 +13,7 @@ class Input:
 
     left_mouse_pressed = False
     right_mouse_pressed = False
+
 
     @classmethod
     def collect_inputs(cls, events):
@@ -46,6 +52,7 @@ class Input:
     @classmethod    
     def is_key_held(cls,key: int):
         return cls.keys_held[key]
+
 
     @classmethod
     def is_key_pressed(cls, key: int):

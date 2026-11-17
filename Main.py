@@ -4,14 +4,15 @@ AI Assisted
 import pygame
 from pygame import Vector2
 import Hierachy
+from MonoBehaviorManager import MonoBehaviorManager
+from GameObjects import GameObjects
 from Core.Time import Time
 from Core.Screen import Screen
 from Core.Input import Input
 from Core.Transform import Transform
-from MonoBehaviorManager import MonoBehaviorManager
-from GameObjects import GameObjects
-from Physics.Physics import Physics
 from Rendering.SpriteRenderer import SpriteRenderer
+from Physics.Physics import Physics
+
 
 pygame.init()
 Screen.current = pygame.display.set_mode(Screen.current_resolution, pygame.RESIZABLE)
@@ -19,16 +20,16 @@ pygame.display.set_caption("Shop Keeper")
 clock = pygame.time.Clock()
 running = True
 
-monoManager = MonoBehaviorManager()
-goManager = GameObjects()
-goManager.setMonoManager(monoManager)
-Physics.monoManager = monoManager
+mono_manager = MonoBehaviorManager()
+go_manager = GameObjects()
+go_manager.set_mono_manager(mono_manager)
+Physics.mono_manager = mono_manager
 
 # Construct Hierachy
-Hierachy.construct_hierachy(monoManager,goManager)
+Hierachy.construct_hierachy()
 
 # Get all sprites for rendering
-sprites = monoManager.find_monoBehaviors(type(SpriteRenderer))
+sprites = mono_manager.find_monoBehaviors(type(SpriteRenderer))
 
 while running:
     events = pygame.event.get()
@@ -65,16 +66,16 @@ while running:
     # End AI Generated
 
     # Update MonoBehaviors
-    monoManager.update_mono_thread()
+    mono_manager.update_mono_thread()
     
-    monoManager.update_render_stack_order()
-    monoManager.update_render_thread()
+    mono_manager.update_render_stack_order()
+    mono_manager.update_render_thread()
 
     # Render the screen
     pygame.display.flip()
 
-    Time.DeltaTime = clock.tick(60) / 1000.0
-    Time.Time += Time.DeltaTime
+    Time.delta_time = clock.tick(60) / 1000.0
+    Time.time += Time.delta_time
     
 
 print("exit code: 0")
