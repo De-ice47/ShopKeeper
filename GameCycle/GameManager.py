@@ -18,22 +18,32 @@ class Game_State(Enum):
 class GameManager(MonoBehavior):
 
     game_state: Game_State = None
-    money: int = 0
-    MIN_ITEMS_ON_DELIVERY: int = 20
-    MAX_ITEMS_ON_DELIVERY: int = 30
+    money: float = 0
+    money_today: float = 0
+    best_day: float = 0
+    item_just_sold: ItemDefinition.ItemDefinition = None
+    MIN_ITEMS_ON_DELIVERY: int = 30
+    MAX_ITEMS_ON_DELIVERY: int = 40
+    items_in_stock: list[ItemDefinition.ItemDefinition] = []
 
     def switch_state(self,state: Game_State):
         if self.game_state == state:
             return
         self.game_state = state
         if state == Game_State.Morning:
+            self.item_just_sold = None
+            if self.money_today > self.best_day:
+                self.best_day = self.money_today
             # spawn delivered items in delivery zone
             number_of_items_to_deliver = random.randint(self.MIN_ITEMS_ON_DELIVERY,self.MAX_ITEMS_ON_DELIVERY)
             for i in range(number_of_items_to_deliver):
                 random_item: ItemDefinition.ItemDefinition = random.choice(list(ItemDefinition.ITEM_DEFINITIONS.values()))
-                position = Vector2(18 + i // 5,8 + i % 5)
+                self.items_in_stock.append(random_item)
+                position = Vector2(16 + i // 5,8 + i % 5)
                 if self.can_place_here(position + Vector2(.5,.5)):
                     self.spawn_item(random_item,position)
+        elif state == Game_State.Service:
+            self.money_today = 0
 
 
     def spawn_item(self,item_def: ItemDefinition.ItemDefinition, position: Vector2):
@@ -63,4 +73,6 @@ class GameManager(MonoBehavior):
 
         return True
 
+    def random_item_in_stock(self):
+        return self.items_in_stock[random.randrange(0,len(self.items_in_stock))]
 

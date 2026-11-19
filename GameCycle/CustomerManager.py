@@ -36,6 +36,9 @@ class CustomerManager(MonoBehavior):
             if inventory != None:
                 if inventory.item_held.name == self.requested_item.name:
                     self.game_manager.money += inventory.item_held.value
+                    self.game_manager.money_today += inventory.item_held.value
+                    self.game_manager.items_in_stock.remove(self.requested_item)
+                    self.game_manager.item_just_sold = self.requested_item
                     self.gameObject.gameObject_manager.destroy(inventory.gameObject)
                     self.itemRenderer.set_sprite(None)
                     self.bubbleRenderer.set_sprite(None)
@@ -46,7 +49,7 @@ class CustomerManager(MonoBehavior):
             # generate new item
             self.reset_timer += Time.delta_time
             if self.requested_item == None and self.reset_timer > self.reset_time:
-                self.requested_item = random.choice(list(ItemDefinition.ITEM_DEFINITIONS.values()))
+                self.requested_item = self.game_manager.random_item_in_stock()
                 self.itemRenderer.set_sprite(self.requested_item.sprite_tag)
                 self.bubbleRenderer.set_sprite("bubble")
                 self.personRenderer.set_sprite(f"customer{random.randint(0,3)}")
@@ -54,10 +57,13 @@ class CustomerManager(MonoBehavior):
             elif self.requested_item != None:
                 self.reset_timer = 0
             pass
-        elif self.game_manager.game_state == GameManager.Game_State.Evening:
+        else:
             self.requested_item = None
             self.itemRenderer.set_sprite(None)
+            self.bubbleRenderer.set_sprite(None)
+            self.personRenderer.set_sprite(None)
             self.reset_timer = 0
+        
 
 
     def find_type_closest_to(self, position: Vector2):

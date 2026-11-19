@@ -12,8 +12,6 @@ from GameCycle.OpenStoreSwitch import OpenStoreSwitch
 from UI.MainUI import MainUI
 from Player.PlayerController import PlayerController
 from Inventory.Inventory import Inventory
-from Inventory.Item import Item
-from Inventory import ItemDefinition
 from Player.PlayerInventoryManager import PlayerInventoryManager
 
 def construct_hierachy():
@@ -52,8 +50,8 @@ def construct_hierachy():
     mainUIText = main_UI_GO.add_component(TextRenderer)
     main_UI = main_UI_GO.add_component(MainUI)
     main_UI.text = mainUIText
-    main_UI_GO.pos_x = .5
-    main_UI_GO.pos_y = .5
+    main_UI_GO.pos_x = .25
+    main_UI_GO.pos_y = .25
     main_UI.game_manager = game_manager
     main_UI.switch = switch
 
@@ -73,7 +71,7 @@ def spawn_customer_position(position: Vector2, gameManager: GameManager.GameMana
     customer_renderer.order = 9
     customer_manager_GO.pos_x = position.x + .5
     customer_manager_GO.pos_y = position.y + .5
-    customer_renderer.offset = Vector2(1,1)
+    customer_renderer.offset = Vector2(1,1.1)
     bubble_renderer = customer_manager_GO.add_component(SpriteRenderer)
     customer_manager.bubbleRenderer = bubble_renderer
     bubble_renderer.offset = Vector2(1,1)
@@ -103,9 +101,11 @@ def spawn_player(position: Vector2):
 
 # map wall collisions
 collider_positions: list[Vector2] = [Vector2(0,0), Vector2(1,0),Vector2(24,0), Vector2(0,13), Vector2(6,1), Vector2(6,6), 
-                                    Vector2(6,10),Vector2(7,7), Vector2(14,7), Vector2(18,1), Vector2(18,5)]
+                                    Vector2(6,10),Vector2(7,7), Vector2(14,7), Vector2(18,1), Vector2(18,5), Vector2(1,1), 
+                                    Vector2(20,1), Vector2(23,2)]
 collider_sizes: list[Vector2] = [Vector2(1,14), Vector2(24,1), Vector2(1,14), Vector2(25,1), Vector2(1,3), Vector2(1,3), 
-                                Vector2(1,3), Vector2(5,1), Vector2(10,1), Vector2(1,3), Vector2(1,2)]
+                                Vector2(1,3), Vector2(5,1), Vector2(10,1), Vector2(1,3), Vector2(1,2), Vector2(4,2),
+                                Vector2(4,1), Vector2(1,1)]
 
 
 def spawn_map_colliders():
