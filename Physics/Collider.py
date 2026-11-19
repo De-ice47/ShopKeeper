@@ -17,4 +17,3 @@ class Collider(MonoBehavior):
 
     def collision(self, position: Vector2):
         pass
-

@@ -1,5 +1,5 @@
 '''
-AI Modified
+AI Assisted
 '''
 class ItemDefinition:
 
@@ -26,53 +26,53 @@ ITEM_DEFINITIONS = {
     ),
 
     "book": ItemDefinition(
-                "book",
-                "Book",
-                14.30,
-                "book"
-            ),
+        "book",
+        "Book",
+        14.30,
+        "book"
+    ),
 
     "bread": ItemDefinition(
-                    "bread",
-                    "Bread",
-                    2.5,
-                    "bread"
-                ),
+        "bread",
+        "Bread",
+        2.5,
+        "bread"
+    ),
 
     "candy": ItemDefinition(
-                    "candy",
-                    "Candy",
-                    5.0,
-                    "candy"
-                ),
+        "candy",
+        "Candy",
+        5.0,
+        "candy"
+    ),
 
     "chips": ItemDefinition(
-                    "chips",
-                    "Chips",
-                    8.0,
-                    "chips"
-                ),
+        "chips",
+        "Chips",
+        8.0,
+        "chips"
+    ),
 
     "circuit": ItemDefinition(
-                    "circuit",
-                    "Circuit",
-                    20.0,
-                    "circuit"
-                ),
+        "circuit",
+        "Circuit",
+        20.0,
+        "circuit"
+    ),
 
     "python": ItemDefinition(
-                        "python",
-                        "Python",
-                        3.14,
-                        "python"
-                    ),
+        "python",
+        "Python",
+        3.14,
+        "python"
+    ),
 
     "soda": ItemDefinition(
-                            "soda",
-                            "Soda",
-                            5.0,
-                            "soda"
-                        ),
+        "soda",
+        "Soda",
+        5.0,
+        "soda"
+    ),
 
     "strawberry": ItemDefinition(
         "strawberry",
@@ -82,11 +82,9 @@ ITEM_DEFINITIONS = {
     ),
 
     "water": ItemDefinition(
-                                "water",
-                                "Water",
-                                3.0,
-                                "water"
-                            )
-    
+        "water",
+        "Water",
+        3.0,
+        "water"
+    )
 }
-

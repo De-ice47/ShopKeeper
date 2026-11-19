@@ -75,4 +75,3 @@ class GameManager(MonoBehavior):
 
     def random_item_in_stock(self):
         return self.items_in_stock[random.randrange(0,len(self.items_in_stock))]
-
